@@ -51,19 +51,24 @@ function commandUpdate() {
   if (!last_date) {
     throw "\n**** UNEXPECTED: The duty calendar is empty\n";
   }
-  
+
   [last_date] = last_date;
   let last_triager = duties[last_date];
-  let next_triager = last_triager;
+  let next_triager = nextTriager(triagers, last_triager);
   let next_date_ms = new Date(last_date).getTime();
 
   do {
     next_date_ms += CYCLE_LENGTH_MS;
-    next_triager = nextTriager(triagers, next_triager);
+    let date = new Date(next_date_ms);
+    if (date.getDay() == 5 ||
+        date.getDay() == 6) {
+      continue;
+    }
 
-    let date = new Date(next_date_ms).toISOString().replace(/T.*$/, "");
-    duties[date] = next_triager;
-    console.log(`Added: from ${date} duty ${next_triager}`);
+    let date_str = date.toISOString().replace(/T.*$/, "");
+    duties[date_str] = next_triager;
+    console.log(`Added: from ${date_str} duty ${next_triager}`);
+    next_triager = nextTriager(triagers, next_triager);
   } while (next_triager !== last_triager);
 
   writeTriage(triage);
@@ -72,7 +77,7 @@ function commandUpdate() {
 
 function commandPrepush() {
   const { triage, triagers, duties } = readTriage();
-  
+
   const ical = require('ical-toolkit');
   let builder = ical.createIcsFileBuilder();
 
