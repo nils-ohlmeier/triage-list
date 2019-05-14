@@ -95,7 +95,7 @@ function commandPrepush() {
     builder.events.push({
       start: new Date(duty_date_ms),
       end: new Date(duty_date_ms + CYCLE_LENGTH_MS),
-      summary: `Media triager: ${duty_triager}`,
+      summary: `${duty_triager} - triage`,
       allDay: true,
     });
   }
