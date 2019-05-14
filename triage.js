@@ -9,8 +9,8 @@ commands
   * push: pushes the changes to the repo and makes them public, refreshes the ics file as well`;
 
 const TRIAGE_JSON_FILE = "triage.json";
-const TRIAGE_ICAL_FILE = "necko-triage.ics";
-const CYCLE_LENGTH_DAYS = 7;
+const TRIAGE_ICAL_FILE = "media-triage.ics";
+const CYCLE_LENGTH_DAYS = 1;
 const DAY_TO_MS = 24 * 60 * 60 * 1000;
 const CYCLE_LENGTH_MS = CYCLE_LENGTH_DAYS * DAY_TO_MS;
 
@@ -35,7 +35,7 @@ function nextTriager(triagers, current_triager) {
   if (index < 0) {
     throw `\n**** FATAL: duty-start-dates refers an unexisting triager '${current_triager}'\n`;
   }
-  
+
   ++index;
   if (index >= names.length) {
     index = 0;
@@ -76,12 +76,12 @@ function commandPrepush() {
   const ical = require('ical-toolkit');
   let builder = ical.createIcsFileBuilder();
 
-  builder.calname = "Necko Triage";
+  builder.calname = "Media Triage";
   builder.timezone = "Europe/Dublin";
   builder.tzid = "Europe/Dublin";
   builder.additionalTags = {
     'REFRESH-INTERVAL': 'VALUE=DURATION:P1H',
-    'X-WR-CALDESC': 'Necko Triage'
+    'X-WR-CALDESC': 'Media Triage'
   };
 
   for (let duty_date in duties) {
@@ -90,7 +90,7 @@ function commandPrepush() {
     builder.events.push({
       start: new Date(duty_date_ms),
       end: new Date(duty_date_ms + CYCLE_LENGTH_MS),
-      summary: `Necko triager: ${duty_triager}`,
+      summary: `Media triager: ${duty_triager}`,
       allDay: true,
     });
   }
@@ -107,7 +107,7 @@ function commandExempt(exempt_date) {
   }
 
   console.log(`Removing '${duties[exempt_date]}' on duty from ${exempt_date} from the duty list`);
-  
+
   exempt_date = new Date(exempt_date);
   let dates_to_shift = Object.keys(duties).filter(date => {
     return new Date(date).getTime() >= exempt_date;

@@ -1,23 +1,21 @@
 {
   "triagers": {
-    "Honza Bambas": {
-      "bzmail": "honzab.moz@firemni.cz"
-    },
-    "Michal Novotny": {
-      "bzmail": "michal.novotny@gmail.com"
-    },
-    "Junior Hsu": {
-      "bzmail": "juhsu@mozilla.com"
-    },
-    "Valentin Gosu": {
-      "bzmail": "valentin.gosu@gmail.com"
-    },
-    "Dragana Damjanovic": {
-      "bzmail": "dd.mozilla@gmail.com"
-    },
-    "Kershaw Chang": {
-      "bzmail": "kershaw@mozilla.com"
-    }
+    "alwu" : {},
+    "achronop": {},
+    "bryce": {},
+    "bwc": {},
+    "chunmin": {},
+    "dminor": {},
+    "drno": {},
+    "jhlin": {},
+    "jib": {},
+    "jya": {},
+    "karlt": {},
+    "kinetik": {},
+    "mjf": {},
+    "ng": {},
+    "padenot": {},
+    "pehrsons": {}
   },
   "duty-start-dates": {
     "2019-03-15": "Kershaw Chang",
